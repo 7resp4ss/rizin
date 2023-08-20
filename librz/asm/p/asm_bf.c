@@ -103,7 +103,7 @@ static int disassemble(RzAsm *a, RzAsmOp *op, const ut8 *buf, int len) {
 	return op->size;
 }
 
-static bool _write_asm(RzAsmOp *op, int value, int n) {
+static bool _write_asm(RzAsmOp *op, int value, size_t n) {
 	ut8 *opbuf = malloc(n);
 	if (opbuf == NULL) {
 		return true;
@@ -115,7 +115,7 @@ static bool _write_asm(RzAsmOp *op, int value, int n) {
 }
 
 static int assemble(RzAsm *a, RzAsmOp *op, const char *buf) {
-	int n = 0;
+	size_t n = 0;
 	if (buf[0] && buf[1] == ' ') {
 		buf += 2;
 	}
@@ -123,7 +123,7 @@ static int assemble(RzAsm *a, RzAsmOp *op, const char *buf) {
 	const char *ref = strchr(buf, '[');
 	bool write_err = false;
 	if (arg) {
-		n = atoi(arg + 1);
+		n = atol(arg + 1);
 	} else {
 		n = 1;
 	}
